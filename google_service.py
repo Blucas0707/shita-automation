@@ -1,20 +1,25 @@
+import os
+import json
 from typing import List
 from datetime import datetime, timedelta
 
+from dotenv import load_dotenv
 from google.oauth2 import service_account
 from googleapiclient.discovery import build
 from googleapiclient.errors import HttpError
 
+load_dotenv()
+
 
 # Replace with the path to your service account credentials JSON file
-SERVICE_ACCOUNT_FILE = 'google_credential.json'
+SERVICE_ACCOUNT_INO_DICT = json.loads(os.getenv('GOOGLE_CREDENTIAL_JSON'))
 
 SCOPES = ['https://www.googleapis.com/auth/spreadsheets.readonly', 'https://www.googleapis.com/auth/calendar']
 
 
 class GoogleService:
-    creds = creds = service_account.Credentials.from_service_account_file(
-        SERVICE_ACCOUNT_FILE,
+    creds = creds = service_account.Credentials.from_service_account_info(
+        SERVICE_ACCOUNT_INO_DICT,
         scopes=SCOPES
     )
 
